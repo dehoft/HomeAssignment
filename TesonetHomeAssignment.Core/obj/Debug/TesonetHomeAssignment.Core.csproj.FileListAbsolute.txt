@@ -1,0 +1,7 @@
+C:\Users\edvin\source\repos\TesonetHomeAssignment.Core\bin\Debug\TesonetHomeAssignment.Core.dll.config
+C:\Users\edvin\source\repos\TesonetHomeAssignment.Core\bin\Debug\TesonetHomeAssignment.Core.dll
+C:\Users\edvin\source\repos\TesonetHomeAssignment.Core\bin\Debug\TesonetHomeAssignment.Core.pdb
+C:\Users\edvin\source\repos\TesonetHomeAssignment.Core\obj\Debug\TesonetHomeAssignment.Core.csprojAssemblyReference.cache
+C:\Users\edvin\source\repos\TesonetHomeAssignment.Core\obj\Debug\TesonetHomeAssignment.Core.csproj.CoreCompileInputs.cache
+C:\Users\edvin\source\repos\TesonetHomeAssignment.Core\obj\Debug\TesonetHomeAssignment.Core.dll
+C:\Users\edvin\source\repos\TesonetHomeAssignment.Core\obj\Debug\TesonetHomeAssignment.Core.pdb

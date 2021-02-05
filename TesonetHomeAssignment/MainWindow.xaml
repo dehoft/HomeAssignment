@@ -1,0 +1,103 @@
+﻿<Window x:Class="TesonetHomeAssignment.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:viewModel="clr-namespace:TesonetHomeAssignment.ViewModel"        
+        mc:Ignorable="d"
+        Title="HomeAssignment" Height="450" Width="800"
+        d:DataContext="{d:DesignInstance {x:Type viewModel:WindowViewModel}}">
+
+    <materialDesign:DialogHost x:Name="DialogHost" IsOpen="False" CloseOnClickAway="True">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>              
+                <ColumnDefinition Width="3*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="32"></RowDefinition>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Column="0" Grid.Row="1" >
+                <Button 
+                        Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                        Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
+                        Visibility="{Binding Login.LogInButtonVisibility}"
+                        x:Name="LoginButton">
+                    <Button.CommandParameter>
+                        <StackPanel Margin="10">
+                            <Label Content="Prisijungti" HorizontalAlignment="Center" FontWeight="Bold" />
+                            <Label Content="{Binding Login.ErrorMessage}" Foreground="Red" HorizontalAlignment="Center" Visibility="{Binding Login.WrongCredentialsVisibility}" />
+                            
+                            <TextBox Margin="10"
+                                    MinWidth="100"
+                                    materialDesign:HintAssist.Hint="Vartotojo vardas"
+                                    Text="{Binding Login.UserName}"
+                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                            <PasswordBox
+                                        Margin="10"
+                                        MinWidth="100"
+                                        x:Name="FloatingPasswordBox"
+                                        materialDesign:HintAssist.Hint="Slaptažodis"
+                                        Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" />
+                            <StackPanel Orientation="Horizontal">
+                                <Button Style="{StaticResource MaterialDesignFlatButton}"
+                                        IsDefault="True"
+                                        Margin="0 8 8 0"    
+                                        Command="{Binding Login.LogIn}"
+                                        Content="Prisijungti" />
+                                <Button Style="{StaticResource MaterialDesignFlatButton}"
+                                        x:Name="CloseLogin"
+                                        IsDefault="False"
+                                        Margin="0 8 8 0"
+                                        Command="materialDesign:DialogHost.CloseDialogCommand"
+                                        Content="Atšaukti" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Button.CommandParameter>
+                    <TextBlock Text="Prisijungti" />
+                </Button>
+            
+                <Button
+                        Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                        Content="Atsijungti"
+                        Visibility="{Binding Login.LogOutButtonVisibility}"
+                        Background="IndianRed"
+                        Command="{Binding Login.LogOut}" />
+            </StackPanel>
+
+            <StackPanel Grid.Column="0" Grid.Row="0" >
+                <Button
+                        Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                        Content="Atnaujinti serverių sąrašą"
+                        Visibility="{Binding VisibleToLoggedInUser}"
+                        Command="{Binding GetServersListFromApi}" />
+
+                <Button
+                        Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                        Content="DB serverių sąrašas"
+                        Background="DarkCyan"
+                        Visibility="{Binding VisibleToLoggedInUser}"
+                        Command="{Binding GetServersListFromDB}" />
+
+            </StackPanel>
+
+            <DataGrid Grid.Row="0" Grid.Column="1"  CanUserAddRows="True"
+                                    ScrollViewer.CanContentScroll="True"
+                                    ScrollViewer.IsDeferredScrollingEnabled="True"
+                                    ScrollViewer.VerticalScrollBarVisibility="Visible"
+                                    ItemsSource="{Binding Servers, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    AutoGenerateColumns="False"
+                                    x:Name="DataGridHoles"
+                                    Visibility="{Binding VisibleToLoggedInUser}">
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Nr." Binding="{Binding id}" />
+                    <DataGridTextColumn Header="Pavadinimas" Binding="{Binding Name}" />
+                    <DataGridTextColumn Header="Atstumas" Binding="{Binding Distance}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </materialDesign:DialogHost>
+</Window>
